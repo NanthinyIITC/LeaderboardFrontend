@@ -1,3 +1,4 @@
+
 <div class="card">
   <div class="filter-container p-grid p-align-center">
     <!-- Start Date Filter -->
@@ -77,9 +78,14 @@
       <p>Total Actual Working Days: {{ totalActualWorkingdays }}</p>
       <p>Staff applied leave days: {{ totalLeavedays }}</p>
     </div>
-    <div class="chart">
+    <div class="chart"  #chart>
       <p-chart type="pie" [data]="chartData" [options]="chartOptions"></p-chart>
     </div>
   </div>
 </div>
 <!-- chart part end here -->
+ <!-- download btn start here -->
+<div style="display: flex; flex-direction: row; justify-content: right;">
+  <button pButton class="btn add-btn" (click)="downloadPdf()" [disabled]="isDownloadBtnValid"> <i class="pi pi-download"></i>Download as PDF</button>
+</div>
+<!-- download btn  end here -->

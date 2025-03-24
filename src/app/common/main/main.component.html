@@ -2,7 +2,8 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
-      <app-side-nav-bar></app-side-nav-bar>
+      <app-side-nav-bar   [isSidebarCollapsed]="isSidebarCollapsed"
+      (sidebarToggle)="onSidebarToggle()"></app-side-nav-bar>
     </div>
   </div>
   <!-- End Sidebar -->

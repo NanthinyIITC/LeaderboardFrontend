@@ -47,3 +47,12 @@ label {
   font-weight: 800;
   color:  rgb(43, 83, 110);
 }
+.add-btn {
+  margin: 2rem;
+  width: 170px;
+  background-color: rgb(43, 83, 110);
+  color: white;
+  .pi-download {
+      margin-right: 5px;       
+  }
+}
