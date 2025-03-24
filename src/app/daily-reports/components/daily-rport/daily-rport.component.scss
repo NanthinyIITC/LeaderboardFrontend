@@ -1,0 +1,21 @@
+.add-report-main {
+    margin: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    .action-btns {
+        button {
+            margin-left: 10px;
+        }
+    }
+    & .save-btn {
+        margin-top: 2rem;
+    }
+}
+
+input[type="time"] {
+    padding: 8px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

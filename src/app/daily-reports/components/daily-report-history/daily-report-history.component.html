@@ -1,0 +1,82 @@
+<div class="history-main" style="margin: 2rem 2rem 0 2rem;">
+  <h5 style="color: rgb(94, 116, 138);font-weight: bold;">Daily Report History</h5>
+  <div class="filter-container p-grid p-align-center">
+    <!-- Date Filter -->
+    <div class="p-field p-col-6 p-md-4">
+      <label for="dateFilter">Select Date</label>
+      <p-calendar 
+        id="dateFilter" 
+        [(ngModel)]="selectedDate" 
+        showIcon 
+        (ngModelChange)="filterUsingDate($event)">
+      </p-calendar>
+    </div>
+  <!-- end of date filter -->
+    <!-- Dropdown Filter (Visible only for Admins) -->
+    <div class="p-field p-col-6 p-md-4" *ngIf="isAdmin()==true">
+      <label for="staffFilter">Select User</label>
+      <p-dropdown 
+        id="staffFilter" 
+        [(ngModel)]="selectedStaff" 
+        [options]="staffDrpList" 
+        placeholder="Select a User"
+      
+        (ngModelChange)="filterUsingStaff($event)">
+      </p-dropdown>    
+    </div>
+    <!-- end of user dropdown -->
+  </div>
+  <!-- table start here -->
+  <p-table 
+    [value]="dailyReports"  
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <!-- <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th> -->
+        <th >
+          Task
+        </th>
+        <th >
+          Start Time 
+        </th>
+        <th >
+          End Time 
+        </th>
+        <th >
+          Completed Percentage
+        </th>
+        <th >
+          Duration (Mins)
+        </th>
+        <th >
+          Comments 
+        </th>
+        <th >
+          Date 
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-report>
+      <tr>
+        <!-- <td>{{ report.id }}</td> -->
+        <td>{{ report.task }}</td>
+        <td>{{ report.startTime }}</td>
+        <td>{{ report.endTime }}</td>
+        <td>{{ report.percentage }}</td>
+        <td>{{ report.duration }}</td>
+        <td>{{ report.comments }}</td>
+        <td>{{ report.createdDate | date : "yyyy-MM-dd" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- table end here -->
+</div>
+<!-- pagination start -->
+<div class="flex justify-content-right card-background">
+  <p-paginator #supplierPaginator
+      (onPageChange)="onPageChange($event)"    
+      [rows]="recordsPerPage"
+      [totalRecords]="(dailyReports.length>0) ? dailyReports[0].totalRecords:0"  
+     />
+</div>
+<!-- pagination end here -->

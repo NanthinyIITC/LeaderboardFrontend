@@ -1,0 +1,36 @@
+// .main{
+//     width: 500px;
+//     height: 300px;
+//     margin-left: 400px;
+ 
+//     .login-page{
+
+//         margin-top: 200px;
+//     }
+// }
+// .header{
+//     height: 100px;
+  
+//     .header-left{
+//         display: flex;
+//         flex-direction: row;
+//        justify-content: left;
+//        margin-left: 20px;
+//     }
+// }
+
+/* Apply full viewport height and center the login page content */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(235, 245, 245); /* Light background for the whole page */
+ 
+  }
+  
+  .card{
+    width: 40rem;
+    height: 20rem;
+   }

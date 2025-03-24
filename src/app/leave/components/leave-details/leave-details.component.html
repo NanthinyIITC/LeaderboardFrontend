@@ -1,0 +1,127 @@
+<!-- Leave request button tag -->
+<div
+  style="
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin: 2rem 2rem 0 2rem;
+  "
+>
+<!-- button for leave request popup -->
+
+  <button pButton class="btn add-leave-btn" (click)="showDialog('leaveRequest')" > <i class="pi pi-plus"></i>Leave Request</button>
+  <button pButton class="btn add-leave-btn" (click)="showDialog('viewLeaves')" > View My Leaves</button>
+  <!-- end of button for leave request popup -->
+</div>
+<!-- End of leave request button tag -->
+
+<div class="container mt-4">
+  <div class="row g-3">
+    <!-- Allocated leave card view part -->
+    <div class="col-lg-4 col-md-6 col-12">
+      <div class="card shadow">
+        <div class="card-header text-black card-head-txt">Allocated Leaves</div>
+        <div class="card-body">
+          <ng-container *ngFor="let item of leaveTypes">
+            <div class="row text-center">
+              <div class="col-6">{{ item.name }}</div>
+              <!-- set colors as per the leave type -->
+              <div class="col-3">
+                <span
+                  [class.red]="item.name === 'Annual Leave'"
+                  [class.purple]="item.name === 'Casual Leave'"
+                  [class.blue]="item.name === 'Sick Leave'"
+                  class="circle"
+                ></span>
+              </div>
+               <!-- end of set colors as per the leave type -->
+              <!-- allocated leave values -->
+              <div class="col-3">{{ item.days }}</div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <!-- End of allocated leave card view part -->
+    <!-- Applied leaves card view -->
+    <div class="col-lg-4 col-md-6 col-12">
+      <div class="card shadow">
+        <div class="card-header text-black card-head-txt">Applied Leaves</div>
+        <div class="card-body">
+          <ng-container *ngFor="let item of leaveSummary">
+            <div class="row text-center">
+              <div class="col-6">{{ item.leaveType }}</div>
+              <div class="col-3">
+                <span
+                  [class.red]="item.leaveType === 'Annual Leave'"
+                  [class.purple]="item.leaveType === 'Casual Leave'"
+                  [class.blue]="item.leaveType === 'Sick Leave'"
+                  class="circle"
+                ></span>
+              </div>
+
+              <div class="col-3">{{ item.numberOfDays }}</div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <!-- End of applied leaves card view -->
+    <!-- Leave balance card view part -->
+    <div class="col-lg-4 col-md-6 col-12">
+      <div class="card shadow">
+        <div class="card-header text-black card-head-txt">Leave Balance</div>
+        <div class="card-body">
+          <ng-container *ngFor="let item of leaveBalance">
+            <div class="row text-center">
+              <div class="col-6">{{ item.leaveType }}</div>
+              <div class="col-3">
+                <span
+                  [class.red]="item.leaveType === 'Annual Leave'"
+                  [class.purple]="item.leaveType === 'Casual Leave'"
+                  [class.blue]="item.leaveType === 'Sick Leave'"
+                  class="circle"
+                ></span>
+              </div>
+              <div class="col-3">{{ item.numberOfDays }}</div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <!-- End of leave balance card view part -->
+  </div>
+</div>
+<!-- calender view of all leaves of staff -->
+<div class="col-12 display-flex-center" style="margin: 0 2rem;background-color: white;">
+  <div class="col-sm-12 col-md-12 col-xl-12 col-lg-12">
+    <!-- define options -->
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+</div>
+<!-- end calender view of all leaves of staff -->
+<!--dialog box for open leave request form component -->
+<div class="card flex justify-center">
+  <p-dialog
+  (onHide)="onDialogClose()"
+    [header]="buttonSelection=='leaveRequest' ? 'Leave Request':'Applied Leave Details'"
+    [modal]="true"
+    [(visible)]="visible"
+    [style]="buttonSelection=='leaveRequest' ? { width: '50rem', height: '52rem' }: { width: '70rem', height: '50rem' }"
+  >
+   <ng-container *ngIf="buttonSelection==='leaveRequest'">
+    <app-leave-form
+    [leaveTypes]="leaveTypes"
+    (result)="updateChanges($event)"
+    [resetform]="reset"
+  ></app-leave-form>
+   </ng-container>
+   <ng-container  *ngIf="buttonSelection==='viewLeaves'"> <app-view-leaves
+  
+    ></app-view-leaves></ng-container>
+  </p-dialog>
+</div>
+<!--end of dialog box for open leave request form component -->
+<!-- toast start -->
+<p-toast />
+<!-- toast end -->

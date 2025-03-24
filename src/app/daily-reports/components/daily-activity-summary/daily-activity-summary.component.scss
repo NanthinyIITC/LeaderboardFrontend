@@ -1,0 +1,49 @@
+::ng-deep .p-dropdown-panel .p-dropdown-item {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  margin-left: -1rem;
+}
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.p-field {
+  display: flex;
+  flex-direction: row;
+}
+
+label {
+  font-weight: 500;
+  margin-top: 8px;
+  margin-right: 5px;
+}
+.card {
+  margin: 2rem;
+}
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+  background-color: white; /* Light background */
+}
+.card-body {
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  
+  .txt {
+    align-items: center;
+    padding-top: 10px;
+    font-weight: 500;
+  }
+}
+.card-header{
+  font-weight: 800;
+  color:  rgb(43, 83, 110);
+}

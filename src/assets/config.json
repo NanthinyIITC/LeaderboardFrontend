@@ -1,0 +1,7 @@
+{    
+    "clientID": "26949446-09b3-4957-b4ee-5178c04490ca",
+    "redirectUri": "http://localhost:4200/auth-verify",
+    "scope": "user.read",
+    "postLogoutRedirectUri": "http://localhost:4200/"
+  
+}

@@ -1,0 +1,85 @@
+<div class="card">
+  <div class="filter-container p-grid p-align-center">
+    <!-- Start Date Filter -->
+    <div class="p-field p-col-6 p-md-4">
+      <label for="startdateFilter">Select Start Date</label>
+      <input
+        pInputText
+        type="date"
+        id="startdateFilter"
+        [(ngModel)]="selectedStartDate"
+        (ngModelChange)="filterUsingStartDate($event)"
+      />
+      <!-- <p-calendar 
+            id="startdateFilter" 
+            [(ngModel)]="selectedStartDate" 
+            showIcon 
+            (ngModelChange)="filterUsingStartDate($event)">
+          </p-calendar> -->
+    </div>
+    <!-- end of start date filter -->
+    <!-- End Date Filter -->
+    <div class="p-field p-col-6 p-md-4">
+      <label for="enddateFilter">Select End Date</label>
+      <!-- <p-calendar 
+              id="enddateFilter" 
+              [(ngModel)]="selectedEndDate" 
+              showIcon 
+              (ngModelChange)="filterUsingEndDate($event)">
+            </p-calendar> -->
+      <input
+        pInputText
+        type="date"
+        id="enddateFilter"
+        [(ngModel)]="selectedEndDate"
+        (ngModelChange)="filterUsingEndDate($event)"
+        [min]="selectedStartDate"
+        [disabled]="selectedStartDate==null"
+      />
+    </div>
+    <!-- end of end date filter -->
+    <!-- Dropdown Filter (Visible only for Admins) -->
+    <div class="p-field p-col-6 p-md-4">
+      <label for="staffFilter">Select User</label>
+      <p-dropdown
+        id="staffFilter"
+        [(ngModel)]="staffId"
+        [options]="staffDrpList"
+        placeholder="Select a User"
+        (ngModelChange)="filterUsingStaff($event)"
+        [disabled]="(selectedStartDate==null || selectedEndDate==null)"      >
+      </p-dropdown>
+    </div>
+    <!-- end of user dropdown -->
+    <!-- Dropdown Filter (Visible only for Admins) -->
+    <div class="p-field p-col-6 p-md-4">
+      <label for="staffFilter">Select Task Type</label>
+      <p-dropdown
+        id="staffFilter"
+        [(ngModel)]="taskId"
+        [options]="taskDrpList"
+        placeholder="Select a Task"
+        (ngModelChange)="filterUsingTasktype($event)"
+        [disabled]="(selectedStartDate==null || selectedEndDate==null || staffId==0)"    
+      >
+      </p-dropdown>
+    </div>
+    <!-- end of user dropdown -->
+  </div>
+</div>
+<!-- chart part start here -->
+<div class="card">
+  <div class="card-header">Activity Summary Chart</div>
+  <div class="card-body">
+    <div class="txt">
+      <p>Staff Name: {{ getStaffName }}</p>
+      <p>Total Staff Working Days: {{ totalWorkingDays }}</p>
+      <p>Total Actual Working Days: {{ totalActualWorkingdays }}</p>
+      <p>Staff applied leave days: {{ totalLeavedays }}</p>
+    </div>
+    <div class="chart">
+      <p-chart type="pie" [data]="chartData" [options]="chartOptions"></p-chart>
+    </div>
+  </div>
+</div>
+<!-- chart part end here -->

@@ -1,0 +1,121 @@
+  <!-- Sidebar -->
+
+  <div class="sidebar-logo">
+    <!-- Logo Header -->
+    <div class="logo-header">
+      <a href="" class="logo" style="color: white;font-weight: bold; font-size: 1.1rem;">EMP Dashboard
+      
+      </a>
+      <div class="nav-toggle">
+        <button class="btn btn-toggle toggle-sidebar">
+          <i class="gg-menu-right"></i>
+        </button>
+        <button class="btn btn-toggle sidenav-toggler">
+          <i class="gg-menu-left"></i>
+        </button>
+      </div>
+      <button class="topbar-toggler more">
+        <i class="gg-more-vertical-alt"></i>
+      </button>
+    </div>
+    <!-- End Logo Header -->
+  </div>
+  <div class="sidebar-wrapper scrollbar scrollbar-inner">
+    <div class="sidebar-content">
+      <ul class="nav nav-secondary">
+
+        <li class="nav-section">
+          <span class="sidebar-mini-icon">
+            <i class="fa fa-ellipsis-h"></i>
+          </span>
+
+        </li>
+ <!-- side nav item for staff  -->
+        <li class="nav-item" *ngIf="isAdmin===true">
+          <a data-bs-toggle="collapse" href="#staff">
+            <i class="pi pi-user"></i>
+            <p>Staff</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="staff">
+            <ul class="nav nav-collapse">
+              <li>
+                <a routerLink="staff-detail">
+                  <span class="sub-item">Staff Details</span>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </li>
+   <!-- side nav item for report  -->
+        <li class="nav-item">
+          <a data-bs-toggle="collapse" href="#reports">
+            <i class="far fa-chart-bar"></i>
+            <p>Daily Reports</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="reports">
+            <ul class="nav nav-collapse">
+              <li>
+                <a routerLink="daily-report">
+                  <span class="sub-item">Daily Reports</span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="daily-report-history">
+                  <span class="sub-item">Daily Report History</span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="daily-activity-summary">
+                  <span class="sub-item">Daily Activity Summary</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+     <!-- side nav item for leave  -->
+        <li class="nav-item">
+          <a data-bs-toggle="collapse" href="#leave" (click)="toggleCollapse($event)">
+            <i class="pi pi-calendar-times"></i>
+            <p>Leaves</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="leave">
+            <ul class="nav nav-collapse">
+              <li>
+                <a routerLink="leave-details">
+                  <span class="sub-item">Leave Details</span>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </li>
+     <!-- side nav item for configuration  -->
+        <li class="nav-item" *ngIf="isAdmin===true">
+          <a data-bs-toggle="collapse" href="#config">
+            <i class="pi pi-cog"></i>
+            <p>Configurations</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="config">
+            <ul class="nav nav-collapse">
+              <li>
+                <a routerLink="user-type">
+                  <span class="sub-item">User Type</span>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+
+<!-- End Sidebar -->
+

@@ -1,0 +1,56 @@
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;   
+   
+  }
+  .red{
+    background-color: red;
+  }
+  .purple{
+    background-color: #4B0082;
+  }
+  .blue{
+    background-color: blue;
+  }
+  .add-leave-btn {
+    margin: 2rem;
+    width: 150px;
+    background-color: rgb(43, 83, 110);
+    color: white;
+    .pi-plus{
+        margin-right: 5px;
+    }
+}
+::ng-deep .fc-button-group {
+  margin-top: 0.5rem;
+  margin-right: 2rem;
+  background: none;
+  color: white !important;
+  border: none !important;
+}
+::ng-deep .fc-today-button {
+  margin-top: 0.5rem !important;
+  background-color: rgb(43, 83, 110) !important; 
+  color: white !important;
+  border: none !important;
+}
+
+::ng-deep .fc-prev-button
+ {
+  margin-top: 0.5rem;
+  background-color: rgb(43, 83, 110) !important;
+  color: white !important;
+  border: none !important;
+}
+::ng-deep .fc-next-button {
+  margin-top: 0.5rem;
+  background-color: rgb(43, 83, 110) !important;
+  color: white !important;
+  border: none !important;
+}
+.card-head-txt{
+  color:  rgb(43, 83, 110);
+  font-weight: bold;
+}

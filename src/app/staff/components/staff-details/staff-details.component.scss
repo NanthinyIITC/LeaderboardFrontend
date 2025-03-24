@@ -1,0 +1,63 @@
+.details {
+    width: 100%;
+    .table {
+        font-size: 20px;
+
+        .action-btn {
+            a {
+                width: 30px;
+            }
+        }
+    }
+}
+.add-staff-btn {
+    margin: 2rem;
+    width: 100px;
+    background-color: rgb(43, 83, 110);
+    color: white;
+    .pi-user {
+        margin-right: 5px;       
+    }
+}
+
+::ng-deep .btn {
+    margin-left: 20px;
+    font-size: 12px;
+    width: 60px;
+}
+// pagination margin adjustments
+::ng-deep .p-dropdown-panel .p-dropdown-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+::ng-deep .p-dropdown-panel .p-dropdown-item {
+    width: 50px;
+    text-align: center;
+    justify-content: center;
+    margin-left: -2rem;
+}
+.card-background {
+    margin: 0 2rem;
+    background-color: rgb(235, 245, 245);
+}
+::ng-deep .p-datatable .p-datatable-thead > tr > th,
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    border-bottom: 1px solid #ddd;
+ 
+    border-right: none;
+}
+.staff-table{
+    .pi-user-edit,.pi-trash{
+        cursor: pointer;    
+        margin-left: 15px;
+    }
+    .pi-trash{
+        color: red;
+    }
+}
+::ng-deep .pi-user-edit,.pi-trash{
+    font-size: 1.2rem;
+   
+}

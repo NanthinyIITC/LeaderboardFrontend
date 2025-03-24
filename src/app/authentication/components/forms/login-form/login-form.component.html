@@ -1,0 +1,54 @@
+
+
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg rounded-4" style="width: 450px;">
+      <div class="text-center">
+        <h3 class="mb-3">Login</h3>
+      </div>      
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email">Email address *</label>
+          <input
+            type="email"
+            class="form-control"
+            id="login-email"
+            [(ngModel)]="email"
+            name="email"
+            required
+            #mail="ngModel"
+            placeholder="Enter Email Address"
+          />
+          <span class="error-msg" *ngIf="mail.invalid && (mail.dirty || mail.touched)">Email address is required</span>
+        </div>
+        
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="login-password">Password *</label>      
+          <div class="p-inputgroup">      
+            <input pInputText
+            [type]="passwordVisible ? 'text' : 'password'" 
+              class="form-control"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="Enter Password"
+              required
+              #pass="ngModel"
+            />
+            <!-- eye icon to handle visibility -->
+            <span class="p-inputgroup-addon" (click)="togglePasswordVisibility()">
+              <i class="pi" [ngClass]="passwordVisible ? 'pi-eye-slash' : 'pi-eye'"></i>
+            </span>
+            <!-- end of eye icon visibitity -->
+          </div>
+          <span class="error-msg" *ngIf="pass.invalid && (pass.dirty || pass.touched)">Password is required</span>
+        </div>
+      
+    
+        <!-- Login Button -->
+        <button type="button" class="btn btn-primary w-100" (click)="loginUser()" [disabled]="validateInput()">Login</button>
+     
+     
+    </div>
+  </div>
+  <p-toast></p-toast>

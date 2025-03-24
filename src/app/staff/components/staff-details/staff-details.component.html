@@ -1,0 +1,158 @@
+<div class="staff-main">
+  <div style="display: flex; flex-direction: row; justify-content: right;">
+    <button pButton class="btn add-staff-btn" (click)="addStaff()" > <i class="pi pi-user"></i>Add Staff</button>
+  </div>
+
+  <div class="staff-table" style="margin: 0 2rem;">
+    <p-table
+    [value]="staffList"
+    showGridlines
+    
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID </th>
+        <th >
+          First Name 
+        </th>
+        <th>
+          Last Name 
+        </th>
+        <th >
+          Email 
+        </th>
+        <th >
+          Contact
+        </th>
+        <th >
+          Designation 
+        </th>
+        <th >
+          User Type 
+        </th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-staff>
+      <tr>
+        <td>{{ staff.id }}</td>
+        <td>{{ staff.firstName }}</td>
+        <td>{{ staff.lastName }}</td>
+        <td>{{ staff.email }}</td>
+        <td>{{ staff.contactNumber }}</td>
+        <td>{{ staff.designation }}</td>
+        <td>{{ staff.userType }}</td>
+        <td>
+          <div class="edit-trash">
+            <!-- <button
+            class="btn btn-lg btn-outline-primary"
+            (click)="EditStaff(staff)"
+          >
+            Edit
+          </button> -->
+            <a
+            pTooltip="Edit Staff" tooltipPosition="top"
+              (click)="EditStaff(staff)"
+              class="p-button-secondary"
+            ><i class="pi pi-user-edit"></i></a>
+            <a
+            pTooltip="Remove Staff" tooltipPosition="top"
+            style="margin-left: 10px"          
+            (click)="deleteConfirmation($event,staff.id)"
+            class="p-button-danger"
+          ><i class="pi pi-trash"></i></a>
+            <!-- <button
+            class="btn btn-lg btn-outline-primary"
+            (click)="DeleteStaff(staff.id)"
+          >
+            Delete
+          </button> -->
+        
+          
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  </div>
+</div>
+<!-- 
+<div class="details" style="font-size: 14px;margin-top: 2rem;margin-left: 2rem;">
+    <button class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#userModal">Add User</button>
+
+  <table style="font-size: 14px;margin-top: 2rem;margin-left: 2rem;" >
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Username</th>
+        <th>Contact</th>
+        <th>Designation</th>
+        <th>User Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of staffs">
+        <td>{{ user.id }}</td>
+        <td>{{ user.firstName }} {{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.userName }}</td>
+        <td>{{ user.contactNumber }}</td>
+        <td>{{ user.designation }}</td>
+        <td>{{ user.userType }}</td>
+        <td>
+          <button class="btn" style="width: 3rem;" (click)="EditStaff(user)">Edit</button>
+          <button class="btn" style="width: 3rem;" (click)="DeleteStaff(user.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+
+</div>
+
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userModalLabel">{{ isEditMode ? 'Edit User' : 'Add User' }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <app-staff-create-form [mode]="isEditMode" [data]="staff"></app-staff-create-form>
+          </div>
+      </div>
+    </div>
+  </div>
+ -->
+
+ <p-dialog
+    [header]="isEditMode ? 'Edit Staff' : 'Add Staff'"
+    [modal]="true"
+    [(visible)]="visible"
+    [style]="{ width: '55rem', height: '40rem' }"  >
+    <app-staff-create-form
+      [mode]="isEditMode"
+      [data]="staff"
+      (result)="updateChanges($event)"
+    ></app-staff-create-form>
+  </p-dialog>
+<!--end of staff creation form component -->
+<!-- toast start -->
+<p-toast />
+<!-- toast end -->
+ <!-- confirm dialog start -->
+<p-confirmDialog />
+<!-- confirm dialog end -->
+
+
+<div class="flex justify-content-right card-background">
+  <p-paginator #supplierPaginator
+      (onPageChange)="onPageChange($event)"    
+      [rows]="recordsPerPage"
+      [totalRecords]="(staffList.length>0) ? staffList[0].totalRecords:0"    
+     />
+</div>

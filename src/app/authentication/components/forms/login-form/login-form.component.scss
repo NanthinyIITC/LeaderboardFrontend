@@ -1,0 +1,16 @@
+.form-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .login-btn{
+        margin-bottom: 10px;
+        width: 10rem;
+    }
+   
+}
+.error-msg{
+    color: red;
+ }
+ .p-inputgroup-addon{
+    cursor: pointer;
+ }

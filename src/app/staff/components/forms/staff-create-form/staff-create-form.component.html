@@ -1,0 +1,147 @@
+<div class="staff-form">
+  <!-- start form for create/edit staff -->
+<form (ngSubmit)="saveUser()">
+  <div class="mb-3">
+    <!-- label for first name -->
+    <label for="firstName" class="font-semibold w-24">First Name:</label>
+    <!-- input field for first name -->
+    <input  pInputText
+      type="text"
+      class="form-control"
+      [(ngModel)]="firstName"
+      name="firstName"
+      required
+      #fName="ngModel"
+      placeholder="Enter First Name"
+    />
+    <!-- end of first name input field -->
+     <!-- handle validation -->
+    <span class="error-msg" *ngIf="fName.invalid && (fName.dirty || fName.touched)">First name is required</span>
+  </div>
+  <div class="mb-3">
+    <!-- label for last name -->
+    <label>Last Name:</label>
+    <!-- input field for last name -->
+    <input  pInputText
+      type="text"
+      class="form-control"
+      [(ngModel)]="lastName"
+      name="lastName"
+      required
+      #lName="ngModel"
+      placeholder="Enter Last Name"
+    />
+    <!-- end of input field of last name -->
+       <!-- handle validation -->
+    <span class="error-msg" *ngIf="lName.invalid && (lName.dirty || lName.touched)">Last name is required</span>
+  </div>
+  <div class="mb-3">
+    <!-- label for email -->
+    <label>Email:</label>
+      <!-- start of email input field -->
+    <input  pInputText
+      type="email"
+      class="form-control"
+      [(ngModel)]="email"
+      name="email"
+      required
+      #mail="ngModel"
+      placeholder="Enter Email Address"
+    />
+      <!-- end of email input field -->
+        <!-- handle validation -->
+    <span class="error-msg" *ngIf="mail.invalid && (mail.dirty || mail.touched)">Email is required</span>
+  </div>
+  <div class="mb-3">
+    <!-- label for nick name -->
+    <label>Nick Name:</label>
+      <!-- start of user name input field -->
+    <input  pInputText
+      type="text"
+      class="form-control"
+      [(ngModel)]="nickName"
+      name="userName"
+      required
+      #uName="ngModel"
+      placeholder="Enter Nick Name"
+    />
+      <!-- end of username input field -->
+        <!-- handle validation -->
+    <span class="error-msg" *ngIf="uName.invalid && (uName.dirty || uName.touched)">Nick name is required</span>
+  </div>
+  <div class="mb-3">
+    <!-- label for contact number -->
+    <label>Contact Number:</label>
+      <!-- start of contact number input field -->
+    <input  pInputText
+      type="text"
+      class="form-control"
+      [(ngModel)]="contactNumber"
+      name="contactNumber"
+      required
+      #cNumber="ngModel"
+      placeholder="Enter Contact Number "
+    />
+      <!-- end of contact number input field -->
+        <!-- handle validation -->
+    <span class="error-msg" *ngIf="cNumber.invalid && (cNumber.dirty || cNumber.touched)">Contact number is required</span>
+  </div>
+  <div class="mb-3">
+    <label>Designation:</label>
+      <!-- start of designation input field -->
+    <input pInputText
+      type="text"
+      class="form-control"
+      [(ngModel)]="designation"
+      name="designation"
+      required
+      #des="ngModel"
+      placeholder="Enter Designation"
+    />
+      <!-- end of designation input field -->
+        <!-- handle validation -->
+    <span class="error-msg" *ngIf="des.invalid && (des.dirty || des.touched)">Designation is required</span>
+  </div>
+  <div class="mb-3" *ngIf="!mode">
+    <!-- label for password -->
+    <label>User Password:</label>
+      <!-- start of password input field -->
+      <div class="p-inputgroup">      
+        <input pInputText
+        [type]="passwordVisible ? 'text' : 'password'" 
+          class="form-control"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Enter password"
+        />
+        <!-- eye icon to handle visibility -->
+        <span class="p-inputgroup-addon" (click)="togglePasswordVisibility()">
+          <i class="pi" [ngClass]="passwordVisible ? 'pi-eye-slash' : 'pi-eye'"></i>
+        </span>
+        <!-- end of eye icon visibitity -->
+      </div>
+  
+   <!-- end of password input field -->
+  </div>
+  <!-- dropdown for user types -->
+  <div class="mb-3">
+    <label>User Type:</label>    
+    <select class="form-select" [(ngModel)]="userTypeId" name="userType" required #type="ngModel" placeholder="Select User Type">
+      <option *ngFor="let type of userTypes" [value]="type.id">
+        {{ type.name }}
+      </option>
+    </select>
+    <span class="error-msg" *ngIf="type.invalid && (type.dirty || type.touched)">User type is required</span>
+  </div>
+  <!-- end of user types drop down -->
+   <!-- button for save/update -->
+  <button type="submit" class="btn save-btn" [disabled]="validateSubmit()">
+    {{ mode ? "Update" : "Save" }}
+  </button>
+  <!-- end of save/update button -->
+</form>
+<!-- end form for create/edit staff -->
+
+
+
+</div>

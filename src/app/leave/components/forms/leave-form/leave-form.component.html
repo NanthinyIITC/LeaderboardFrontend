@@ -1,0 +1,135 @@
+<p-toast></p-toast>
+<!-- start of leave type dropdown -->
+ <form #leaveForm="ngForm">
+  <div class="mb-3">
+    <!-- label for leave type -->
+    <label for="leaveType" class="font-semibold w-24">Leave Type:</label>
+    <select
+      class="form-select"
+      [(ngModel)]="leaveRequest.leaveTypeId"
+      name="leaveType"
+      required
+      #type="ngModel"
+      aria-placeholder="Select Leave Type"
+      [autofocus]="false"
+    >
+      <option *ngFor="let tt of leaveTypes" [value]="tt.id">
+        {{ tt.name }}
+      </option>
+    </select>
+    <!-- validation for leave type -->
+    <span class="error-msg" *ngIf="type.invalid && (type.dirty || type.touched)"
+      >Leave type is required</span
+    >
+  </div>
+  <!-- end of leave type dropdown -->
+  <!-- start of start date input -->
+  <div class="mb-3">
+    <!-- label for start date -->
+    <label>Start Date</label>
+    <input
+      pInputText
+      type="date"
+      class="form-control"
+      [(ngModel)]="leaveRequest.startDate"
+      name="startDate"
+      required
+      #sDate="ngModel"  
+      [min]="minDate" 
+      (ngModelChange)="validateStartDate($event)"
+    />
+    <!-- validation for start date -->
+    <span
+      class="error-msg"
+      *ngIf="sDate.invalid && (sDate.dirty || sDate.touched)"
+      >Start date is required</span
+    >
+  </div>
+  <!-- end of start date input -->
+  <!-- start of end date input -->
+  <div class="mb-3">
+    <!-- label for end date -->
+    <label>End Date</label>
+    <input
+      pInputText
+      type="date"
+      class="form-control"
+      [(ngModel)]="leaveRequest.endDate"
+      name="endDate"
+      required
+      #eDate="ngModel"
+      [min]="leaveRequest.startDate"
+      [disabled]="leaveRequest.startDate == null"
+      (ngModelChange)="validateEndDate($event)"
+    />
+    <!-- validation for end date -->
+    <span
+      class="error-msg"
+      *ngIf="eDate.invalid && (eDate.dirty || eDate.touched)"
+      >End date is required</span
+    >
+  </div>
+  
+  <!-- check box for halfday -->
+  <div class="mb-3" *ngIf="halfdayVisible">
+    <p-checkbox
+      inputId="ishalfdayId"
+      name="ishalfday"
+      [(ngModel)]="leaveRequest.isHalfday"
+      [binary]="true"
+      (ngModelChange)="checkBoxChange()"
+      name="checkbox"
+    />
+    <label for="ishalfday" class="checkbox-label"> Is Halfday</label>
+  </div>
+  <!-- end of check box -->
+  <!-- radio for halfday types -->
+  <div class="mb-3" *ngIf="leaveRequest.isHalfday == true">
+    <div style="display: flex; flex-direction: row">
+      <div class="flex align-items-center mb-3 ml-3">
+        <p-radioButton
+          name="morning"
+          value="morning"
+          [(ngModel)]="halfdayType"
+          inputId="morning"
+          (ngModelChange)="radioButtonChange()"
+        />
+        <label for="morning" class="ml-2"> Morning Halfday </label>
+      </div>
+      <div class="flex align-items-center mb-3 ml-3">
+        <p-radioButton
+          name="afternoon"
+          value="afternoon"
+          [(ngModel)]="halfdayType"
+          inputId="afternoon"
+          (ngModelChange)="radioButtonChange()"
+          
+        />
+        <label for="afternoon" class="ml-2"> Afternoon Halfday </label>
+      </div>
+    </div>
+  </div>
+  <!-- end of radio for halfday types -->
+  <!-- end of check box -->
+  <p-editor name="editor"
+    [(ngModel)]="leaveRequest.description"
+    [style]="{ height: '320px' }"
+  />
+
+ </form>
+
+<div style="margin-top: 1rem;">
+  <button
+    pButton
+    type="button"
+    class="p-button-secondary"
+    (click)="sendRequest()"
+    [disabled]="validateSubmit()"
+  >
+    Send Request
+  </button>
+</div>
+<!-- end of button for send request -->
+<!-- confirm dialog start -->
+<p-confirmDialog />
+<!-- confirm dialog end -->

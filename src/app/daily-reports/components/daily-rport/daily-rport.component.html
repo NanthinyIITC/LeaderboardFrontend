@@ -1,0 +1,132 @@
+<!-- add reports begin -->
+<div class="add-report-main">
+  <h5>Add Daily Reports</h5>
+  <!-- table for add reports -->
+  <p-table
+    [value]="dailyReports" 
+ 
+    showGridlines
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Task Type</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Duration (Mins)</th>
+        <th>Completed Percentage</th>
+        <th>Comments</th>
+        <th></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-report let-i="rowIndex">
+      <tr>
+        <!-- start of td for task type dropdown -->
+        <td>
+          <select
+            class="form-select"
+            [(ngModel)]="report.taskId"
+            name="taskType"
+            required
+            #type="ngModel"
+            aria-placeholder="Select Task Type"
+            (ngModelChange)="autoSave()"
+          >
+            <option *ngFor="let tt of taskTypes" [value]="tt.id">
+              {{ tt.name }}
+            </option>
+          </select>
+        </td>
+        <!-- end of td for task type dropdown -->
+        <!-- start of td for startTime -->
+        <td>
+          <input type="time" [(ngModel)]="report.startTime" [disabled]="setStartTimeValid(i)" required   (ngModelChange)="updateStartTime(i)"/>       
+        </td>
+        <!-- end of td for startTime-->
+        <!-- start of td for endTime -->
+        <td>
+          <input
+            type="time"
+            id="endTime"
+            [(ngModel)]="report.endTime"
+            (change)="calculateDuration(report)"
+            required
+            (ngModelChange)="updateEndTime(i)"
+          />        
+        </td>
+        <!-- end of td for endTime -->
+        <!-- start of td for duration -->
+        <td style="text-align: center;">{{ report.duration  }}</td>
+        <!-- end of td for duration -->
+        <!-- start of td for percentage -->
+        <td>
+          <input
+            pInputText
+            type="number"
+            class="form-control"
+            [(ngModel)]="report.percentage"
+            name="percentage"
+            required
+            (ngModelChange)="autoSave()"
+          />
+        </td>
+        <!-- end of td for percentage -->
+        <!-- start of td for comments -->
+        <td>
+          <input
+            pInputText
+            type="text"
+            class="form-control"
+            [(ngModel)]="report.comments"
+            name="comments"
+            required
+            (ngModelChange)="autoSave()"
+          />
+        </td>
+        <!-- end of td for comments -->
+
+        <td>
+          <div class="action-btns">
+            <!-- button for delete row -->
+            <button  *ngIf="!validateRow(i)"
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              (click)="deleteConfirmation($event,i)"
+              class="p-button-danger"
+            ></button>
+            <!-- end of delete button -->
+            <!-- button of add row -->
+            <button
+              *ngIf="i === dailyReports.length - 1"
+              pButton
+              type="button"
+              icon="pi pi-plus"
+              (click)="addRow(i+1)"
+              class="p-button-info"
+              [disabled]="validateRow(i)"
+            ></button>
+            <!-- end of button add row -->
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- button for save reports -->
+  <div class="save-btn">
+    <button
+      pButton
+      type="button"
+      class="p-button-secondary"
+      label="Save Reports"
+      (click)="saveReports()"
+    ></button>
+  </div>
+</div>
+<!-- end of buttonsave reports -->
+<!-- toast start -->
+<p-toast />
+<!-- toast end -->
+ <!-- confirm dialog start -->
+<p-confirmDialog />
+<!-- confirm dialog end -->

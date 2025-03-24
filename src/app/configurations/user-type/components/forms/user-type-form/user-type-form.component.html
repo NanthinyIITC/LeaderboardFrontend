@@ -1,0 +1,23 @@
+<div class="type-form">
+    <!-- start form for create/edit user type -->
+    <form #typeForm="ngForm" (ngSubmit)="saveUser()">
+      <div class="mb-3">
+        <!-- label for user type -->
+        <label for="name" class="font-semibold w-24">User Type Name:</label>
+        <!-- input field for user type-->
+        <input pInputText type="text" class="form-control" [(ngModel)]="userType.name" name="name" required
+          #name="ngModel" placeholder="Enter User Type"  [autofocus]="false"/>
+        <!-- end of user type input field -->
+        <!-- handle validation -->
+        <span class="error-msg" *ngIf="name.invalid && (name.dirty || name.touched)">User type is required</span>
+      </div>  
+      <!-- end of user types drop down -->
+      <!-- button for save/update -->
+      <button type="submit" class="btn save-btn" [disabled]="validateSubmit()">
+        {{ mode ? "Update" : "Save" }}
+      </button>
+      <!-- end of save/update button -->
+    </form>
+    <!-- end form for create/edit user type -->  
+  </div>
+  

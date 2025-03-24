@@ -1,0 +1,47 @@
+.history-main{
+    margin:2rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+   
+}
+// pagination margin adjustments
+// ::ng-deep .p-dropdown-panel .p-dropdown-items {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+  
+//   }
+  //style for pagination
+  ::ng-deep .p-dropdown-panel .p-dropdown-item {
+   width:100%;
+    text-align: center;
+    justify-content: center;
+    margin-left: -1rem;
+  }
+  .filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .p-field {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  label {
+    font-weight: 500;
+    margin-top: 8px;
+    margin-right: 5px;
+  }
+  .card-background{
+    margin: 0 2rem;
+    background-color: rgb(235, 245, 245);
+}
+::ng-deep .p-datatable .p-datatable-thead > tr > th,
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    border-bottom: 1px solid #ddd;  
+    border-right: none;
+}
