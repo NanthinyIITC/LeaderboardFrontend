@@ -47,8 +47,15 @@
     
         <!-- Login Button -->
         <button type="button" class="btn btn-primary w-100" (click)="loginUser()" [disabled]="validateInput()">Login</button>
-     
+       
      
     </div>
+ 
   </div>
   <p-toast></p-toast>
+  <div class="sign-in-with-microsoft">
+    <button class="btn btn-outline-primary-2" (click)="loginWithMicrosoft()">
+      <span>LOG IN WITH MICROSOFT</span>
+      <i class="icon-long-arrow-right"></i>
+    </button>
+  </div>

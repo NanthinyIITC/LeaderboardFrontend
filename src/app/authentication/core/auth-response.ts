@@ -3,5 +3,6 @@ export interface AuthResponse{
    userName?:string
    userType?:string
    isAuthSuccess?:boolean
-   staffId:number
+   staffId:number;
+   token?:string;
 }

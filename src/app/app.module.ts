@@ -10,10 +10,10 @@ import { LoginComponent } from './authentication/components/login/login.componen
 import { LoginFormComponent } from './authentication/components/forms/login-form/login-form.component';
 import { MainComponent } from './common/main/main.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { StaffDetailsComponent } from './staff/components/staff-details/staff-details.component'; 
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { StaffDetailsComponent } from './staff/components/staff-details/staff-details.component';
 import { StaffCreateFormComponent } from './staff/components/forms/staff-create-form/staff-create-form.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -41,6 +41,11 @@ import { ViewLeavesComponent } from './leave/components/view-leaves/view-leaves.
 import { DailyActivitySummaryComponent } from './daily-reports/components/daily-activity-summary/daily-activity-summary.component';
 import { ChartModule } from 'primeng/chart';
 import { CardModule } from 'primeng/card';
+import { AuthVerifyComponent } from './authentication/components/auth-verify/auth-verify.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthenticationService } from './authentication/service/authentication.service';
+import { authGuard } from './auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,15 +64,16 @@ import { CardModule } from 'primeng/card';
     UserTypeDetailsComponent,
     UserTypeFormComponent,
     ViewLeavesComponent,
-    DailyActivitySummaryComponent    
+    DailyActivitySummaryComponent,
+    AuthVerifyComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,  
+    AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    TableModule ,
+    TableModule,
     DialogModule,
     ButtonModule,
     ToastModule,
@@ -77,15 +83,21 @@ import { CardModule } from 'primeng/card';
     ConfirmDialogModule,
     CalendarModule,
     DropdownModule,
-    FullCalendarModule ,
+    FullCalendarModule,
     CheckboxModule,
     TooltipModule,
     EditorModule,
     RadioButtonModule,
     ChartModule,
-    CardModule
+    CardModule,
   ],
-  providers: [MessageService,NzMessageService ,ConfirmationService],
-  bootstrap: [AppComponent]
+  providers: [
+    MessageService,
+    NzMessageService,
+    ConfirmationService,  
+    AuthenticationService,
+    [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

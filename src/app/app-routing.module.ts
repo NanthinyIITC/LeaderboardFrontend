@@ -11,19 +11,21 @@ import { DailyReportHistoryComponent } from './daily-reports/components/daily-re
 import { LeaveDetailsComponent } from './leave/components/leave-details/leave-details.component';
 import { UserTypeDetailsComponent } from './configurations/user-type/components/user-type-details/user-type-details.component';
 import { DailyActivitySummaryComponent } from './daily-reports/components/daily-activity-summary/daily-activity-summary.component';
+import { AuthVerifyComponent } from './authentication/components/auth-verify/auth-verify.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  {path:'auth-verify',component:AuthVerifyComponent} ,
   {
     path: 'main',
     component: MainComponent,
     children: [
       { path: '', component: StaffDetailsComponent
-        ,canActivate:[authGuard]
+      //  ,canActivate:[authGuard]
        }, 
       { path: 'staff-detail', component: StaffDetailsComponent
-        ,canActivate:[authGuard] 
+      //  ,canActivate:[authGuard] 
       },
       { path: 'daily-report', component: DailyRportComponent },
       { path: 'daily-report-history', component: DailyReportHistoryComponent },

@@ -5,6 +5,7 @@ import { LeaveModel } from '../../models/leave-model';
 import { LeaveService } from '../../service/leave.service';
 import { LeaveDetails } from '../../core/leave-request';
 import { environment } from '../../../../environments/environment.development';
+import { AuthenticationService } from '../../../authentication/service/authentication.service';
 
 @Component({
   selector: 'app-view-leaves',
@@ -30,7 +31,8 @@ export class ViewLeavesComponent {
   constructor(
     private leaveService: LeaveService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private auth:AuthenticationService
   ) {
     this.leaveModel = new LeaveModel(leaveService);
     //set logged in user id
@@ -39,11 +41,9 @@ export class ViewLeavesComponent {
 
     this.getAllStaffLeaveDetails();
   }
-  //get user
-  getUser(){
-    const userjson=localStorage.getItem('auth')
-    const user = JSON.parse(userjson);
-    return user;
+   //get user
+   getUser(){    
+    return this.auth.getUserData();
   }
   onYearSelect(event: Date) {
     //set selected year

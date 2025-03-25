@@ -10,6 +10,7 @@ import { Staff } from '../../../staff/core/staff';
 import { StaffService } from '../../../staff/service/staff.service';
 import { StaffModel } from '../../../staff/models/staff-model';
 import { formatDate } from '@angular/common';
+import { AuthenticationService } from '../../../authentication/service/authentication.service';
 interface PageEvent {
   first: number;
   rows: number;
@@ -53,7 +54,8 @@ export class DailyReportHistoryComponent
     private dailyReportService: DailyReportService,
     private staffService: StaffService,
     messageService: NzNotificationService,
-    messageS: MessageService
+    messageS: MessageService,
+    private auth:AuthenticationService
   ) {
     super(messageService);
     this.selectedDate = new Date();
@@ -82,10 +84,8 @@ export class DailyReportHistoryComponent
     return user.userType == 'Admin';
   }
   //get user
-  getUser() {
-    const userjson = localStorage.getItem('auth');
-    const user = JSON.parse(userjson);
-    return user;
+  getUser(){    
+    return this.auth.getUserData();
   }
   //filtering while calender changes
   filterUsingDate(event) {

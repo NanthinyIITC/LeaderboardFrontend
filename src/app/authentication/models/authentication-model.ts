@@ -1,7 +1,8 @@
 import { Subscription } from "rxjs";
 import { AuthenticationService } from "../service/authentication.service";
-import { User } from "../core/user";
+import { AuthRequest, User } from "../core/user";
 import { AuthResponse } from "../core/auth-response";
+import { environment } from "../../../environments/environment.development";
 
 
 
@@ -21,11 +22,12 @@ export class AuthenticationModel{
     }
 
     // login
-    LoginWithEmailAndPassword(user:User) {
+    LoginWithEmailAndPassword(user:AuthRequest) {
         var promise = new Promise((resolve, reject) => {
             this.allSubscriptions.push(this.authService.LoginUser(user).subscribe(
                 data => {
                     let returnData = <AuthResponse>data;
+                  
                     // Resolve the promise
                     resolve(returnData);
                 })

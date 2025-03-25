@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../../service/authentication.service';
 import { Router } from '@angular/router';
-import { User } from '../../../core/user';
+import { AuthRequest, User } from '../../../core/user';
 import { AuthenticationModel } from '../../../models/authentication-model';
 import { AuthResponse } from '../../../core/auth-response';
 import { environment } from '../../../../../environments/environment.development';
@@ -23,9 +23,15 @@ export class LoginFormComponent extends BaseTemplate {
   authModel: AuthenticationModel;
   //declare password visible
   passwordVisible: boolean = false;
-  /**
-   *
-   */
+  //set details of Azure active directory to login/register with microsoft authentication page
+  private clientId = 'a34f0069-d3ee-45a8-989b-348b1a51be0e';
+  private redirectUri = 'http://localhost:4200/auth-verify';
+  private authEndpoint =
+    'https://login.microsoftonline.com/common/oauth2/v2.0/authorize';
+  private scope = 'user.read';
+  private responseType = 'code';
+  private responseMode = 'query';
+  private state = '12345';
   constructor(
     private aService: AuthenticationService,
     message: NzNotificationService,
@@ -39,7 +45,7 @@ export class LoginFormComponent extends BaseTemplate {
   // user login
   loginUser() {
     //set values
-    const user: User = { Email: this.email, Password: this.password };
+    const user: AuthRequest = { Email: this.email, Password: this.password,AuthorizationCode:'',LoginType:'login-email-only' };
     this.authModel.LoginWithEmailAndPassword(user).then((data) => {
       console.log(data);
       //if user exist redirect to home page else login/register
@@ -75,4 +81,20 @@ export class LoginFormComponent extends BaseTemplate {
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
+    // set to redirect microsoft auth page
+    loginWithMicrosoft(): void {
+      debugger
+      //set email to localstorage
+     // localStorage.setItem('mail',this.email)
+      //set uri
+      const authUrl = `${this.authEndpoint}?client_id=${
+        this.clientId
+      }&redirect_uri=${encodeURIComponent(this.redirectUri)}&response_mode=${
+        this.responseMode
+      }&state=${this.state}&response_type=${
+        this.responseType
+      }&scope=${encodeURIComponent(this.scope)}`;
+  
+      window.location.href = authUrl; // Redirect to Microsoft login
+    }
 }

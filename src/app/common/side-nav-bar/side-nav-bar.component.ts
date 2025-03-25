@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
+import { AuthenticationService } from '../../authentication/service/authentication.service';
 interface MenuItem {
   icon: string;
   label: string;
@@ -57,7 +58,7 @@ export class SideNavBarComponent {
       ]
     },
   ];
-constructor(){
+constructor(private auth:AuthenticationService){
  this.isAdmin=this.getUser().userType==='Admin' ? true:false;
 }
 toggleSidebar() {
@@ -70,12 +71,10 @@ toggleMenuItem(item: MenuItem) {
     item.isOpen = !item.isOpen;
   }
 }
-  //get user
-  getUser(){    
-    const userjson=localStorage.getItem('auth')
-    const user = JSON.parse(userjson);   
-    return user;
-  }
+ //get user
+ getUser(){    
+  return this.auth.getUserData();
+}
   toggleCollapse(event: Event) {
     debugger
     event.preventDefault();

@@ -7,6 +7,7 @@ import { StaffService } from '../../../../staff/service/staff.service';
 import { UserTypeService } from '../../service/user-type.service';
 import { ResponseMessage } from '../../../../common/response-message';
 import { NgForm } from '@angular/forms';
+import { AuthenticationService } from '../../../../authentication/service/authentication.service';
 
 @Component({
   selector: 'app-user-type-details',
@@ -30,7 +31,8 @@ export class UserTypeDetailsComponent {
     private messageService: MessageService,
     private staffService: StaffService,
     private userTypeService: UserTypeService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private auth:AuthenticationService
   ) {
     this.staffModel = new StaffModel(staffService);
     this.typeModel = new UserTypeModel(userTypeService);
@@ -131,10 +133,8 @@ export class UserTypeDetailsComponent {
     }
 
   }
-  //get user
-  getUser(){
-    const userjson=localStorage.getItem('auth')
-    const user = JSON.parse(userjson);   
-    return user;
-  }
+ //get user
+ getUser(){    
+  return this.auth.getUserData();
+}
 }

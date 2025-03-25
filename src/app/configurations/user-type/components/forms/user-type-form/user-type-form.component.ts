@@ -4,6 +4,7 @@ import { UserTypeModel } from '../../../model/user-type-model';
 import { UserTypeService } from '../../../service/user-type.service';
 import { ResponseMessage } from '../../../../../common/response-message';
 import { NgForm } from '@angular/forms';
+import { AuthenticationService } from '../../../../../authentication/service/authentication.service';
 
 @Component({
   selector: 'app-user-type-form',
@@ -26,7 +27,7 @@ userType:UserType={
 }
  //declare staff model
   typeModel: UserTypeModel;
-constructor( private userTypeService: UserTypeService){
+constructor( private userTypeService: UserTypeService,private auth:AuthenticationService){
   this.typeModel = new UserTypeModel(userTypeService);
   this.userType=this.getUserTypeDefault();
 }
@@ -46,12 +47,10 @@ constructor( private userTypeService: UserTypeService){
   ngOnInit(): void {
    
   }
-    //get user
-    getUser(){
-      const userjson=localStorage.getItem('auth')
-      const user = JSON.parse(userjson);   
-      return user;
-    }
+   //get user
+   getUser(){    
+    return this.auth.getUserData();
+  }
   //form reset
   closeDialog() {  
     this.form.resetForm(); // Reset form state and values   

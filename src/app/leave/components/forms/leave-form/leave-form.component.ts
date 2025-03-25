@@ -16,6 +16,7 @@ import { LeaveModel } from '../../../models/leave-model';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { NgForm } from '@angular/forms';
+import { AuthenticationService } from '../../../../authentication/service/authentication.service';
 
 @Component({
   selector: 'app-leave-form',
@@ -45,7 +46,8 @@ export class LeaveFormComponent implements OnInit, OnChanges {
   constructor(
     private leaveService: LeaveService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private auth:AuthenticationService
   ) {
     //initialized leave model
     this.leaveModel = new LeaveModel(leaveService);
@@ -106,11 +108,9 @@ export class LeaveFormComponent implements OnInit, OnChanges {
     }
   }
     //get user
-    getUser(){
-      const userjson=localStorage.getItem('auth')
-      const user = JSON.parse(userjson);   
-      return user;
-    }
+  getUser(){    
+    return this.auth.getUserData();
+  }
   //radiochange
   radioButtonChange() {
     if (this.halfdayType === 'morning') {

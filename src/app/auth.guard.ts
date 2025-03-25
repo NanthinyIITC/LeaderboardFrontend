@@ -1,12 +1,13 @@
-import { CanActivateFn, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { environment } from '../environments/environment.development';
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router); 
    //set staff id
-   
-   const userjson=localStorage.getItem('auth')
+   debugger
+   const userjson=localStorage.getItem(`${environment.appName}-auth`)
    const user = JSON.parse(userjson); 
   if(user.userType=='Admin'){
     return true;
@@ -20,3 +21,4 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
   
 };
+

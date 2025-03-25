@@ -19,6 +19,7 @@ import { Title } from '@angular/platform-browser';
 import { formatDate } from '@angular/common';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { environment } from '../../../../environments/environment.development';
+import { AuthenticationService } from '../../../authentication/service/authentication.service';
 @Component({
   selector: 'app-leave-details',
   templateUrl: './leave-details.component.html',
@@ -62,7 +63,8 @@ export class LeaveDetailsComponent
     private leaveService: LeaveService,
     private route: Router,
     message: NzNotificationService,
-    private messageServ: MessageService
+    private messageServ: MessageService,
+    private auth:AuthenticationService
   ) {
     super(message);
     this.staffId=(this.getUser()).staffId
@@ -186,10 +188,8 @@ export class LeaveDetailsComponent
       detail: message,
     });
   }
-     //get user
-     getUser(){
-      const userjson=localStorage.getItem('auth')
-      const user = JSON.parse(userjson);   
-      return user;
-    }
+   //get user
+   getUser(){    
+    return this.auth.getUserData();
+  }
 }
