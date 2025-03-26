@@ -14,10 +14,26 @@ export class MainComponent {
   isSidebarCollapsed = false;
 
 constructor(private auth:AuthenticationService){
-  this.username=(this.getUser()).userName
+  if(this.getUser()==null){
+    this.username="";
+  }else{
+    this.username=(this.getUser()).userName
+  }
+ 
 }
-logout(){
-  localStorage.removeItem(`${environment.appName}-auth`);
+
+private logoutEndpoint =
+'https://login.microsoftonline.com/common/oauth2/v2.0/logout';
+private postLogoutRedirectUri = 'http://localhost:4200/'; // Redirect after logout
+//logout
+logout(): void {
+window.location.href = `${
+  this.logoutEndpoint
+}?post_logout_redirect_uri=${encodeURIComponent(
+  this.postLogoutRedirectUri
+)}`;
+localStorage.removeItem(`${environment.appName}-auth`);
+  localStorage.removeItem(`mail`);
 }
 //handle toggle events
 onSidebarToggle() {

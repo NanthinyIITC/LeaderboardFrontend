@@ -38,14 +38,19 @@ export class LoginFormComponent extends BaseTemplate {
     private messageService: MessageService,
     private route: Router
   ) {
-    console.log('app')
+    console.log('app');
     super(message);
     this.authModel = new AuthenticationModel(aService);
   }
   // user login
   loginUser() {
     //set values
-    const user: AuthRequest = { Email: this.email, Password: this.password,AuthorizationCode:'',LoginType:'login-email-only' };
+    const user: AuthRequest = {
+      Email: this.email,
+      Password: this.password,
+      AuthorizationCode: '',
+      LoginType: 'login-email-only',
+    };
     this.authModel.LoginWithEmailAndPassword(user).then((data) => {
       console.log(data);
       //if user exist redirect to home page else login/register
@@ -53,22 +58,23 @@ export class LoginFormComponent extends BaseTemplate {
       if (res.isAuthSuccess) {
         //set response to local storage
         localStorage.setItem('auth', JSON.stringify(res));
-        // environment.userType=res.userType;
-        // environment.userName=res.userName;
-        // environment.staffId=res.staffId
-        // this.createMessage('success','Success','Successfully Login')
+        //display success message
         this.showMessgae('success', 'Success', 'Successfully Login');
+        //navigate to main page
         setTimeout(() => {
           this.route.navigateByUrl('/main');
         }, 10);
       } else {
+        //display message
         this.showMessgae('error', 'Error', 'Unauthorized....');
       }
     });
   }
+  //handle email and password valid or not
   validateInput() {
     return this.email === '' && this.password === '';
   }
+  //display message
   showMessgae(severity, summary, message) {
     this.messageService.add({
       severity: severity,
@@ -81,20 +87,19 @@ export class LoginFormComponent extends BaseTemplate {
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
-    // set to redirect microsoft auth page
-    loginWithMicrosoft(): void {
-      debugger
-      //set email to localstorage
-     // localStorage.setItem('mail',this.email)
-      //set uri
-      const authUrl = `${this.authEndpoint}?client_id=${
-        this.clientId
-      }&redirect_uri=${encodeURIComponent(this.redirectUri)}&response_mode=${
-        this.responseMode
-      }&state=${this.state}&response_type=${
-        this.responseType
-      }&scope=${encodeURIComponent(this.scope)}`;
-  
-      window.location.href = authUrl; // Redirect to Microsoft login
-    }
+  // set to redirect microsoft auth page
+  loginWithMicrosoft(): void {
+    //set email to localstorage
+    localStorage.setItem('mail', this.email);
+    //set uri
+    const authUrl = `${this.authEndpoint}?client_id=${
+      this.clientId
+    }&redirect_uri=${encodeURIComponent(this.redirectUri)}&response_mode=${
+      this.responseMode
+    }&state=${this.state}&response_type=${
+      this.responseType
+    }&scope=${encodeURIComponent(this.scope)}&login_hint=${this.email}`;
+
+    window.location.href = authUrl; // Redirect to Microsoft login
+  }
 }

@@ -20,11 +20,9 @@ constructor(private http: HttpClient) {
 }
  
  // login to check user exist
- LoginUser(req:AuthRequest) {
-  debugger
+ LoginUser(req:AuthRequest) {  
   return this.http.post<AuthResponse>(this.loginUrl, req).pipe(
-    catchError((error) => {
-      debugger
+    catchError((error) => {      
       this.createMessage('error','Request Failed', error.message)
       // Return an Observable (for example, an Observable of a default value or rethrow the error)
       return of(false); // or return throwError(error);
@@ -33,15 +31,16 @@ constructor(private http: HttpClient) {
   
 }
 
-createMessage(type: string, title: string, message: string): void {
-  debugger
+createMessage(type: string, title: string, message: string): void {  
  console.log(message)
 }
 //get user
 getUserData(){
-  debugger
-  const userjson = JSON.parse(localStorage.getItem(`${environment.appName}-auth`));
-  this.response = JSON.parse(userjson); 
-  return this.response;
+  //get item from local storage and return
+  let userjson = localStorage.getItem(`${environment.appName}-auth`);
+  if (!userjson) return null; // Handle case where data is missing
+
+  let user = JSON.parse(userjson);
+  return user;
 }
 }

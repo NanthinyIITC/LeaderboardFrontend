@@ -59,7 +59,12 @@ export class SideNavBarComponent {
     },
   ];
 constructor(private auth:AuthenticationService){
- this.isAdmin=this.getUser().userType==='Admin' ? true:false;
+  if(this.getUser()==null){
+    this.isAdmin=false;
+  }else{
+    this.isAdmin=this.getUser().userType==='Admin' ? true:false;
+  }
+
 }
 toggleSidebar() {
   this.sidebarToggle.emit();

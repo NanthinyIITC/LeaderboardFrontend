@@ -47,8 +47,8 @@ export class AuthVerifyComponent {
     };
     if (code !== '') {
       this.authModel.LoginWithEmailAndPassword(request).then((data) => {
+        //get response
         const val = <AuthResponse>data;
-debugger
         //if  token has value return success msg
         if (val.isAuthSuccess) {
           //set auth response to local storage
@@ -56,22 +56,24 @@ debugger
             `${environment.appName}-auth`,
             JSON.stringify(val)
           );
+          //display success message
           this.showMessgae(
             'success',
             'Success',
             'User authorized successfully....'
-          );
-          debugger
+          );       
           
           this.router.navigateByUrl('main/staff-detail');
         } else {
           //if user not registered return unauthorized
           this.showMessgae('error', 'Error', 'Unauthorized....');
+          //navigate to login page
           this.router.navigate(['/login']);
         }
       });
     }
   }
+  //display message
   showMessgae(severity, summary, message) {
     this.messageService.add({
       severity: severity,
