@@ -65,8 +65,9 @@ export class StaffCreateFormComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     //handle if edit then set values to defined staff,if add set default values
-    
+    debugger
     if (this.mode) {
+     if(this.data!==undefined){
       this.id = this.data.id;
       this.firstName = this.data.firstName;
       this.lastName = this.data.lastName;
@@ -77,6 +78,7 @@ export class StaffCreateFormComponent implements OnInit, OnChanges {
       this.contactNumber = this.data.contactNumber;
       this.userType = this.data.userType;
       this.userTypeId = this.data.userTypeId;
+     }
     } else {
       this.firstName = '';
       this.lastName = '';

@@ -7,6 +7,7 @@ import { catchError, of } from 'rxjs';
 import { Staff } from '../core/staff';
 import { ResponseMessage } from '../../common/response-message';
 import { UserType } from '../core/user-type';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ private staffCreateUrl = API$DOMAIN + 'api/staff/new-staff';
 private staffUpdatetUrl = API$DOMAIN + 'api/staff/update-staff';
 private staffDeleteUrl = API$DOMAIN + 'api/staff/remove-staff';
 private userTypeGetUrl = API$DOMAIN + 'api/staff/usertypes';
-constructor(private http: HttpClient) {
+constructor(private http: HttpClient, private router: Router,) {
 
 }
   // get-all user types details
@@ -28,7 +29,7 @@ constructor(private http: HttpClient) {
  
     return this.http.get<UserType[]>(this.userTypeGetUrl).pipe(
       catchError((error) => {
-        this.createMessage('error','Request Failed', error.message)
+        this.createMessage('error','Request Failed', error)
         // Return an Observable (for example, an Observable of a default value or rethrow the error)
         return of(false); // or return throwError(error);
       })
@@ -39,7 +40,7 @@ constructor(private http: HttpClient) {
  GetallStaffDetails() { 
   return this.http.get<Staff[]>(this.staffGetWithoutFilterUrl).pipe(
     catchError((error) => {
-      this.createMessage('error','Request Failed', error.message)
+      this.createMessage('error','Request Failed', error)
       // Return an Observable (for example, an Observable of a default value or rethrow the error)
       return of(false); // or return throwError(error);
     })
@@ -55,7 +56,7 @@ constructor(private http: HttpClient) {
     ;
   return this.http.get<Staff[]>(this.staffGetUrl,{params:my_params}).pipe(
     catchError((error) => {
-      this.createMessage('error','Request Failed', error.message)
+      this.createMessage('error','Request Failed', error)
       // Return an Observable (for example, an Observable of a default value or rethrow the error)
       return of(false); // or return throwError(error);
     })
@@ -70,7 +71,7 @@ constructor(private http: HttpClient) {
    ;
   return this.http.get<Staff>(this.staffGetByIdUrl, { params: my_params }).pipe(
     catchError((error) => {
-      this.createMessage('error','Request Failed', error.message)
+      this.createMessage('error','Request Failed', error)
       // Return an Observable (for example, an Observable of a default value or rethrow the error)
       return of(false); // or return throwError(error);
     })
@@ -81,7 +82,7 @@ constructor(private http: HttpClient) {
  CreateStaff(staff:Staff) {
   return this.http.post<number>(this.staffCreateUrl, staff).pipe(
     catchError((error) => {
-      this.createMessage('error','Request Failed', error.message)
+      this.createMessage('error','Request Failed', error)
       // Return an Observable (for example, an Observable of a default value or rethrow the error)
       return of(false); // or return throwError(error);
     })
@@ -96,7 +97,7 @@ constructor(private http: HttpClient) {
    ;
   return this.http.put<ResponseMessage>(this.staffUpdatetUrl,staff, { params: my_params }).pipe(
     catchError((error) => {
-      this.createMessage('error','Request Failed', error.message)
+      this.createMessage('error','Request Failed', error)
       // Return an Observable (for example, an Observable of a default value or rethrow the error)
       return of(false); // or return throwError(error);
     })
@@ -111,14 +112,19 @@ constructor(private http: HttpClient) {
    ;
   return this.http.delete<ResponseMessage>(this.staffDeleteUrl, { params: my_params }).pipe(
     catchError((error) => {
-      this.createMessage('error','Request Failed', error.message)
+      this.createMessage('error','Request Failed', error)
       // Return an Observable (for example, an Observable of a default value or rethrow the error)
       return of(false); // or return throwError(error);
     })
   );
   
 }
-createMessage(type: string, title: string, message: string): void {
- console.log(message)
+createMessage(type: string, title: string, error: any): void {  
+ if(error.status==401){
+ //navigate to login page
+ this.router.navigate(['/login']);
+ }else{
+  console.log(error.message)
+ }
 }
 }

@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { UserType } from '../../../staff/core/user-type';
 import { catchError, of } from 'rxjs';
 import { ResponseMessage } from '../../../common/response-message';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class UserTypeService {
 // API Urls
 private userTypeActionsUrl = API$DOMAIN + 'api/staff/usertype-actions';
 
-constructor(private http: HttpClient) {
+constructor(private http: HttpClient,private router:Router) {
 
 }
 
@@ -27,14 +28,19 @@ constructor(private http: HttpClient) {
     ;
   return this.http.get<ResponseMessage>(this.userTypeActionsUrl,{params:my_params}).pipe(
     catchError((error) => {
-      this.createMessage('error','Request Failed', error.message)
+      this.createMessage('error','Request Failed', error)
       // Return an Observable (for example, an Observable of a default value or rethrow the error)
       return of(false); // or return throwError(error);
     })
   );
   
 }
-createMessage(type: string, title: string, message: string): void {
-  console.log(message)
+createMessage(type: string, title: string, error: any): void {  
+  if(error.status==401){
+  //navigate to login page
+  this.router.navigate(['/login']);
+  }else{
+   console.log(error.message)
+  }
  }
 }

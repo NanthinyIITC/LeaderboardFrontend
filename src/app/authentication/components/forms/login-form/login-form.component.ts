@@ -36,6 +36,7 @@ export class LoginFormComponent extends BaseTemplate {
     private aService: AuthenticationService,
     message: NzNotificationService,
     private messageService: MessageService,
+    private router: Router,
     private route: Router
   ) {
     console.log('app');
@@ -44,6 +45,7 @@ export class LoginFormComponent extends BaseTemplate {
   }
   // user login
   loginUser() {
+    localStorage.setItem('login-type',"login-email-only");
     //set values
     const user: AuthRequest = {
       Email: this.email,
@@ -52,22 +54,31 @@ export class LoginFormComponent extends BaseTemplate {
       LoginType: 'login-email-only',
     };
     this.authModel.LoginWithEmailAndPassword(user).then((data) => {
-      console.log(data);
-      //if user exist redirect to home page else login/register
-      const res = <AuthResponse>data;
-      if (res.isAuthSuccess) {
-        //set response to local storage
-        localStorage.setItem('auth', JSON.stringify(res));
-        //display success message
-        this.showMessgae('success', 'Success', 'Successfully Login');
-        //navigate to main page
-        setTimeout(() => {
-          this.route.navigateByUrl('/main');
-        }, 10);
-      } else {
-        //display message
-        this.showMessgae('error', 'Error', 'Unauthorized....');
-      }
+      
+      console.log(data)
+       //get response
+       const val = <AuthResponse>data;
+       //if  token has value return success msg
+       if (val.isAuthSuccess) {
+         //set auth response to local storage
+         localStorage.setItem(
+           `${environment.appName}-auth`,
+           JSON.stringify(val)
+         );
+         //display success message
+         this.showMessgae(
+           'success',
+           'Success',
+           'User authorized successfully....'
+         );      
+         
+         this.router.navigateByUrl('main/staff-detail');
+       } else {
+         //if user not registered return unauthorized
+         this.showMessgae('error', 'Error', 'Unauthorized....');
+         //navigate to login page
+         this.router.navigate(['/login']);
+       }
     });
   }
   //handle email and password valid or not
@@ -90,6 +101,7 @@ export class LoginFormComponent extends BaseTemplate {
   // set to redirect microsoft auth page
   loginWithMicrosoft(): void {
     //set email to localstorage
+    localStorage.setItem('login-type',"login-ms");
     localStorage.setItem('mail', this.email);
     //set uri
     const authUrl = `${this.authEndpoint}?client_id=${

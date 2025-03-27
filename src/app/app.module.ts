@@ -45,6 +45,7 @@ import { AuthVerifyComponent } from './authentication/components/auth-verify/aut
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthenticationService } from './authentication/service/authentication.service';
 import { authGuard } from './auth.guard';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { authGuard } from './auth.guard';
     RadioButtonModule,
     ChartModule,
     CardModule,
+    ProgressSpinnerModule
   ],
   providers: [
     MessageService,

@@ -11,6 +11,7 @@ import { TaskType } from '../../core/task-type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { debounceTime, Subject } from 'rxjs';
 import { formatDate } from '@angular/common';
+import { AuthenticationService } from '../../../authentication/service/authentication.service';
 
 @Component({
   selector: 'app-daily-rport',
@@ -38,18 +39,17 @@ export class DailyRportComponent implements OnInit {
     private dailyReportService: DailyReportService,
     messageService: NzNotificationService,
     private messageServ: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+     private auth:AuthenticationService
   ) {
     //initialize model
     this.dailyReportModel = new DailyReportModel(dailyReportService);
     //get task type list
     this.getTaskTypes();
+    this.staffId = this.getUser().staffId;
   }
   ngOnInit(): void {
-    //set staff id
-    const userjson=localStorage.getItem('auth')
-    const user = JSON.parse(userjson); 
-    this.staffId=user.staffId
+   
     //get all report details
     this.getAllReports(this.staffId);
     //update report after 2sec after the user input
@@ -57,7 +57,10 @@ export class DailyRportComponent implements OnInit {
       .pipe(debounceTime(2000))
       .subscribe(() => this.saveData());
   }
-
+ //get user
+ getUser(){    
+  return this.auth.getUserData();
+ }
   //save daily reports
   addReports(reports: ReportDetails[]) {
    

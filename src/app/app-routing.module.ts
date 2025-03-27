@@ -16,29 +16,48 @@ import { AuthVerifyComponent } from './authentication/components/auth-verify/aut
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  {path:'auth-verify',component:AuthVerifyComponent} ,
+  { path: 'auth-verify', component: AuthVerifyComponent },
   {
     path: 'main',
     component: MainComponent,
     children: [
-      { path: '', component: StaffDetailsComponent
-      //  ,canActivate:[authGuard]
-       }, 
-      { path: 'staff-detail', component: StaffDetailsComponent
-      //  ,canActivate:[authGuard] 
+      { path: '', component: StaffDetailsComponent, canActivate: [authGuard] },
+      {
+        path: 'staff-detail',
+        component: StaffDetailsComponent,
+        canActivate: [authGuard],
       },
-      { path: 'daily-report', component: DailyRportComponent },
-      { path: 'daily-report-history', component: DailyReportHistoryComponent },
-      { path: 'leave-details', component: LeaveDetailsComponent },
-      { path: 'user-type', component: UserTypeDetailsComponent , canActivate:[authGuard]},
-      { path: 'daily-activity-summary', component: DailyActivitySummaryComponent , canActivate:[authGuard]}
+      {
+        path: 'daily-report',
+        component: DailyRportComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'daily-report-history',
+        component: DailyReportHistoryComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'leave-details',
+        component: LeaveDetailsComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'user-type',
+        component: UserTypeDetailsComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'daily-activity-summary',
+        component: DailyActivitySummaryComponent,
+        canActivate: [authGuard],
+      },
     ],
   },
 ];
 
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

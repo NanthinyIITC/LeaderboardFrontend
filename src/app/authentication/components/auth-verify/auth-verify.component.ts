@@ -37,7 +37,7 @@ export class AuthVerifyComponent {
   }
   //get token after login using authorization code
   getToken(code: string) {
-    
+  
     const email=localStorage.getItem('mail');
     const request: AuthRequest = {
       Email: email,
@@ -65,6 +65,7 @@ export class AuthVerifyComponent {
           
           this.router.navigateByUrl('main/staff-detail');
         } else {
+          debugger
           //if user not registered return unauthorized
           this.showMessgae('error', 'Error', 'Unauthorized....');
           //navigate to login page
@@ -79,6 +80,7 @@ export class AuthVerifyComponent {
       severity: severity,
       summary: summary,
       detail: message,
+      life:3000
     });
   }
 }

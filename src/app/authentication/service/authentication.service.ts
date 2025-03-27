@@ -16,14 +16,14 @@ export class AuthenticationService {
 // API Urls
 private loginUrl = API$DOMAIN + 'api/authentication/login';
 private response:AuthResponse;
-constructor(private http: HttpClient) {
+constructor(private http: HttpClient,private router:Router) {
 }
  
  // login to check user exist
  LoginUser(req:AuthRequest) {  
   return this.http.post<AuthResponse>(this.loginUrl, req).pipe(
     catchError((error) => {      
-      this.createMessage('error','Request Failed', error.message)
+      this.createMessage('error','Request Failed', error)
       // Return an Observable (for example, an Observable of a default value or rethrow the error)
       return of(false); // or return throwError(error);
     })
@@ -31,9 +31,14 @@ constructor(private http: HttpClient) {
   
 }
 
-createMessage(type: string, title: string, message: string): void {  
- console.log(message)
-}
+createMessage(type: string, title: string, error: any): void {  
+  if(error.status==401){
+  //navigate to login page
+  this.router.navigate(['/login']);
+  }else{
+   console.log(error.message)
+  }
+ }
 //get user
 getUserData(){
   //get item from local storage and return

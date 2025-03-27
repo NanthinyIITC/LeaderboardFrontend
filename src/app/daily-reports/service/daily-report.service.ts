@@ -5,6 +5,7 @@ import { TaskType } from 'zone.js/lib/zone-impl';
 import { catchError, of } from 'rxjs';
 import { ChartViewRequest, DailyReport, ReportChartSummary, ReportDetails } from '../core/daily-report';
 import { ResponseMessage } from '../../common/response-message';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -21,12 +22,12 @@ export class DailyReportService {
   private reportGetUrlFilteDate =
     API$DOMAIN + 'api/daily-reports/filter-by-date';
   private dailyReportRemoveUrl = API$DOMAIN + 'api/daily-reports/remove-report';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router:Router) {}
   // get-all task types details
   GetTaskTypes() {
     return this.http.get<TaskType[]>(this.taskTypeGetUrl).pipe(
       catchError((error) => {
-        this.createMessage('error', 'Request Failed', error.message);
+        this.createMessage('error', 'Request Failed', error);
         // Return an Observable (for example, an Observable of a default value or rethrow the error)
         return of(false); // or return throwError(error);
       })
@@ -40,7 +41,7 @@ export class DailyReportService {
       .get<ReportDetails[]>(this.dailyReportGetUrl, { params: my_params })
       .pipe(
         catchError((error) => {
-          this.createMessage('error', 'Request Failed', error.message);
+          this.createMessage('error', 'Request Failed', error);
           // Return an Observable (for example, an Observable of a default value or rethrow the error)
           return of(false); // or return throwError(error);
         })
@@ -63,7 +64,7 @@ export class DailyReportService {
       .get<ReportDetails[]>(this.dailyReportGetUrl, { params: my_params })
       .pipe(
         catchError((error) => {
-          this.createMessage('error', 'Request Failed', error.message);
+          this.createMessage('error', 'Request Failed', error);
           // Return an Observable (for example, an Observable of a default value or rethrow the error)
           return of(false); // or return throwError(error);
         })
@@ -79,7 +80,7 @@ export class DailyReportService {
       .get<ReportDetails[]>(this.dailyReportGetOndateUrl, { params: my_params })
       .pipe(
         catchError((error) => {
-          this.createMessage('error', 'Request Failed', error.message);
+          this.createMessage('error', 'Request Failed', error);
           // Return an Observable (for example, an Observable of a default value or rethrow the error)
           return of(false); // or return throwError(error);
         })
@@ -99,7 +100,7 @@ export class DailyReportService {
       .get<ReportDetails[]>(this.reportGetUrlFilteDate, { params: my_params })
       .pipe(
         catchError((error) => {
-          this.createMessage('error', 'Request Failed', error.message);
+          this.createMessage('error', 'Request Failed', error);
           // Return an Observable (for example, an Observable of a default value or rethrow the error)
           return of(false); // or return throwError(error);
         })
@@ -119,7 +120,7 @@ export class DailyReportService {
       .post<ReportChartSummary>(this.dailyReportChartDataGetUrl,chartview)
       .pipe(
         catchError((error) => {
-          this.createMessage('error', 'Request Failed', error.message);
+          this.createMessage('error', 'Request Failed', error);
           // Return an Observable (for example, an Observable of a default value or rethrow the error)
           return of(false); // or return throwError(error);
         })
@@ -129,7 +130,7 @@ export class DailyReportService {
   AddDailyReports(report: DailyReport) {
     return this.http.post<ResponseMessage>(this.dailyReportAddUrl, report).pipe(
       catchError((error) => {
-        this.createMessage('error', 'Request Failed', error.message);
+        this.createMessage('error', 'Request Failed', error);
         // Return an Observable (for example, an Observable of a default value or rethrow the error)
         return of(false); // or return throwError(error);
       })
@@ -143,13 +144,18 @@ export class DailyReportService {
       .delete<ResponseMessage>(this.dailyReportRemoveUrl, { params: my_params })
       .pipe(
         catchError((error) => {
-          this.createMessage('error', 'Request Failed', error.message);
+          this.createMessage('error', 'Request Failed', error);
           // Return an Observable (for example, an Observable of a default value or rethrow the error)
           return of(false); // or return throwError(error);
         })
       );
   }
-  createMessage(type: string, title: string, message: string): void {
-    console.log(message);
-  }
+  createMessage(type: string, title: string, error: any): void {  
+    if(error.status==401){
+    //navigate to login page
+    this.router.navigate(['/login']);
+    }else{
+     console.log(error.message)
+    }
+   }
 }
