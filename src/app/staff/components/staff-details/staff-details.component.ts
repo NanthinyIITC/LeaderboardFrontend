@@ -28,6 +28,8 @@ export class StaffDetailsComponent {
     totalRecords:number=0;
     //set records per page
     recordsPerPage:number=10;
+    //handle loading
+    isLoading = false;
   constructor(
     private staffService: StaffService,
     private route: Router,
@@ -56,13 +58,15 @@ export class StaffDetailsComponent {
   }
   // get staff details
   getAllStaffDetails() {
+  
     this.staffModel.GetAllStaffsWithPagination(this.currentPageNumber,this.recordsPerPage).then((data) => {      
         this.staffList=<Staff[]>data;
+       
     });
   }
   //tract output event changes
   updateChanges(event) {    
-    if (event.success) {
+    if (event.success) {     
       this.getAllStaffDetails();
       this.showMessgae('success', 'Success', event.message);
       this.closeModal();
@@ -72,7 +76,7 @@ export class StaffDetailsComponent {
        this.showMessgae('error', 'Error', event.message);
        this.closeModal();
     }
-   
+ 
   }
   //handle pagination
   onPageChange(event: any) {    

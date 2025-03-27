@@ -46,6 +46,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthenticationService } from './authentication/service/authentication.service';
 import { authGuard } from './auth.guard';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { LoadingComponent } from './common/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ViewLeavesComponent,
     DailyActivitySummaryComponent,
     AuthVerifyComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

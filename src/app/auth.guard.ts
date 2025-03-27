@@ -15,6 +15,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const userjson = localStorage.getItem(`${environment.appName}-auth`);
   //convert as object
   const user = JSON.parse(userjson);
+  debugger
   //check user null or not
   if (user !== null) {
     //check user type is admin or not
@@ -22,7 +23,7 @@ export const authGuard: CanActivateFn = (route, state) => {
       return true;
     } else if (user.userType == 'Staff') {
       router.navigate(['/main/daily-report']);
-      return false;
+      return true;
     } else {
       router.navigate(['/login']);
       return false;

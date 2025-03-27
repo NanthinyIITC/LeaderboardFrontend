@@ -23,6 +23,7 @@ constructor(private http: HttpClient,private router:Router) {
  LoginUser(req:AuthRequest) {  
   return this.http.post<AuthResponse>(this.loginUrl, req).pipe(
     catchError((error) => {      
+      debugger
       this.createMessage('error','Request Failed', error)
       // Return an Observable (for example, an Observable of a default value or rethrow the error)
       return of(false); // or return throwError(error);

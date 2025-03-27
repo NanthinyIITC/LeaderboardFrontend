@@ -43,6 +43,8 @@ export class StaffCreateFormComponent implements OnInit, OnChanges {
   staffModel: StaffModel;
   //declare array of staff
   userTypes: UserType[] = [];
+    //handle loading
+    isLoading = false;
   constructor(
     private staffService: StaffService,
     private messageService: MessageService
@@ -110,7 +112,7 @@ export class StaffCreateFormComponent implements OnInit, OnChanges {
   }
   //handle save operation
   saveUser() {
-    
+    this.isLoading=true;
     //set values
     const data = {
       id: this.id,
@@ -141,12 +143,14 @@ export class StaffCreateFormComponent implements OnInit, OnChanges {
   }
   //get all user types
   getUserTypes() {
+    this.isLoading=true;
     this.staffModel.GetUserTypes().then((data) => {
       let types = <UserType[]>data;
       if (types) {
         this.userTypes = types;
         this.userTypeId = types[0].id;
       }
+      this.isLoading=false;
     });
   }
   //handle validation

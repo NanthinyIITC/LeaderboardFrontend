@@ -30,7 +30,7 @@ const routes: Routes = [
       {
         path: 'daily-report',
         component: DailyRportComponent,
-        canActivate: [authGuard],
+      //  canActivate: [authGuard],
       },
       {
         path: 'daily-report-history',
@@ -40,7 +40,7 @@ const routes: Routes = [
       {
         path: 'leave-details',
         component: LeaveDetailsComponent,
-        canActivate: [authGuard],
+        //canActivate: [authGuard],
       },
       {
         path: 'user-type',

@@ -37,7 +37,7 @@ export class AuthVerifyComponent {
   }
   //get token after login using authorization code
   getToken(code: string) {
-  
+  debugger
     const email=localStorage.getItem('mail');
     const request: AuthRequest = {
       Email: email,
@@ -47,6 +47,7 @@ export class AuthVerifyComponent {
     };
     if (code !== '') {
       this.authModel.LoginWithEmailAndPassword(request).then((data) => {
+        debugger
         //get response
         const val = <AuthResponse>data;
         //if  token has value return success msg
