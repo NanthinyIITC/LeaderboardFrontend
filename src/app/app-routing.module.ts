@@ -35,7 +35,7 @@ const routes: Routes = [
       {
         path: 'daily-report-history',
         component: DailyReportHistoryComponent,
-        canActivate: [authGuard],
+        //canActivate: [authGuard],
       },
       {
         path: 'leave-details',

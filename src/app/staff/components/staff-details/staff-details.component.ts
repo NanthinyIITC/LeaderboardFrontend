@@ -66,9 +66,12 @@ export class StaffDetailsComponent {
   }
   //tract output event changes
   updateChanges(event) {    
-    if (event.success) {     
+    if (event.success) {  
+      //get staff details   
       this.getAllStaffDetails();
+      //display success msg
       this.showMessgae('success', 'Success', event.message);
+      //close dialog
       this.closeModal();
     } else if (event.success==false) {
       this.showMessgae('error', 'Error', event.message);

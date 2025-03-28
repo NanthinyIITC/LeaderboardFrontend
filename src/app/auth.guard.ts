@@ -21,12 +21,9 @@ export const authGuard: CanActivateFn = (route, state) => {
     //check user type is admin or not
     if (user.userType == 'Admin') {
       return true;
-    } else if (user.userType == 'Staff') {
-      router.navigate(['/main/daily-report']);
-      return true;
     } else {
-      router.navigate(['/login']);
-      return false;
+        router.navigate(['/main/daily-report']);
+      return true;
     }
   } else {
     //navigate to login if user not logged in

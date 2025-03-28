@@ -1,6 +1,6 @@
 <div class="wrapper">
   <!-- Sidebar -->
-  <div class="sidebar">
+  <div class="sidebar"  [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }">
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
       <app-side-nav-bar   [isSidebarCollapsed]="isSidebarCollapsed"
       (sidebarToggle)="onSidebarToggle()"></app-side-nav-bar>

@@ -1,26 +1,26 @@
   <!-- Sidebar -->
 
-  <div class="sidebar-logo">
+  <div class="sidebar-logo" >
     <!-- Logo Header -->
     <div class="logo-header">
-      <a href="" class="logo" style="color: white;font-weight: bold; font-size: 1.1rem;">EMP Dashboard
+      <a class="logo" style="color: white;font-weight: bold; font-size: 1.1rem;">EMP Dashboard
       
       </a>
       <div class="nav-toggle">
-        <button class="btn btn-toggle toggle-sidebar">
+        <button class="btn btn-toggle toggle-sidebar" (click)="onSidebarToggle()">
           <i class="gg-menu-right"></i>
         </button>
-        <button class="btn btn-toggle sidenav-toggler">
+        <button class="btn btn-toggle sidenav-toggler"  (click)="onSidebarToggle()">
           <i class="gg-menu-left"></i>
         </button>
       </div>
-      <button class="topbar-toggler more">
+      <button class="topbar-toggler more"  (click)="onSidebarToggle()">
         <i class="gg-more-vertical-alt"></i>
       </button>
     </div>
     <!-- End Logo Header -->
   </div>
-  <div class="sidebar-wrapper scrollbar scrollbar-inner">
+  <div class="sidebar-wrapper scrollbar scrollbar-inner" >
     <div class="sidebar-content">
       <div class="sidebar-menu">
         <ul>
@@ -36,7 +36,7 @@
                 (click)="toggleMenuItem(item)"
               >
                 <i [class]="item.icon"></i>
-                <span class="sidebar-item-text">{{ item.label }}</span>
+                <span class="sidebar-item-text" [class.txt-nav]="isSidebarCollapsed==true" >{{ item.label }}</span>
                 <i
                   *ngIf="item.children && !isSidebarCollapsed"
                   class="fas fa-chevron-down sidebar-item-arrow"
@@ -48,7 +48,7 @@
                 *ngIf="item.children && !isSidebarCollapsed && item.isOpen"
                 class="sidebar-submenu"
               >
-                <li *ngFor="let child of item.children">
+                <li *ngFor="let child of item.children" >
                   <a [routerLink]="child.link" class="sidebar-item sidebar-subitem"  *ngIf="!validateNavItemChildren(child.label)">
                     <i [class]="child.icon"></i>
                     <span class="sidebar-item-text">{{ child.label }}</span>

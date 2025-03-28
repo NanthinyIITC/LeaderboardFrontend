@@ -103,4 +103,7 @@ export class SideNavBarComponent {
       element.classList.toggle('show');
     }
   }
+  onSidebarToggle() {  
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
 }
